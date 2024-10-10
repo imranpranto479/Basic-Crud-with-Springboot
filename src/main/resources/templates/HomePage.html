@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+<body>
+    <h1>Programmer's Data</h1>
+    <h2 th:text="${msg}"></h2>
+    <form action="addProgrammer" method="post">
+        <h3>Enter Programmer's ID</h3>
+        <input type="text" name="pId"></input>
+
+        <h3>Enter Programmer's Name</h3>
+        <input type="text" name="pName"></input>
+
+        <h3>Enter Programmer's Language</h3>
+        <input type="text" name="pLang"></input>
+
+        <button type="submit"> Add Programmer</button>
+    </form>
+</body>
+</html>
