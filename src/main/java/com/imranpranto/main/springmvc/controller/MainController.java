@@ -3,6 +3,7 @@ package com.imranpranto.main.springmvc.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -12,10 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 import com.imranpranto.main.springmvc.model.Programmer;
+import com.imranpranto.main.springmvc.repository.ProgrammerRepo;
 
 @Controller
 @ControllerAdvice
 public class MainController {
+
+    @Autowired
+    ProgrammerRepo pr;
 
     @ModelAttribute
     public void welcome(Model m) {
@@ -42,6 +47,8 @@ public class MainController {
         // model.addAttribute("pName", n);
         // model.addAttribute("pId", i);
         // model.addAttribute("pLang", pLang);
+
+        pr.save(programmer);
 
         return "ProgrammerInfo.html";
     }

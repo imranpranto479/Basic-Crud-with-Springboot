@@ -1,9 +1,18 @@
 package com.imranpranto.main.springmvc.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Programmer {
 
- 
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int pId;
+    @Column(name="programmer_name")
     private String pName;
     private String pLang;
 
