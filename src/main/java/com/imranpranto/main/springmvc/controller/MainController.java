@@ -1,8 +1,5 @@
 package com.imranpranto.main.springmvc.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.imranpranto.main.springmvc.model.Programmer;
 import com.imranpranto.main.springmvc.repository.ProgrammerRepo;
@@ -38,29 +35,46 @@ public class MainController {
     public String addProgrammer(
             @ModelAttribute("p") Programmer programmer) { // for getting data @RequestParam
 
-        // ModelAndView mv =new ModelAndView();
-
-        // mv.setViewName("ProgrammerInfo.html");
-
-        // return mv;
-
-        // model.addAttribute("pName", n);
-        // model.addAttribute("pId", i);
-        // model.addAttribute("pLang", pLang);
 
         pr.save(programmer);
 
+        return "redirect:/home";
+    }
+
+    @PostMapping("/findById")
+    public String findById(@RequestParam int pId, Model m){
+        Programmer p = pr.getReferenceById(pId);
+
+        m.addAttribute("programmer", p);
+
         return "ProgrammerInfo.html";
+
+
     }
 
-    @GetMapping("/allProgrammer")
-    public String allProgrammer(Model m){
-        List<Programmer> p = new ArrayList<Programmer>();
-        p.add((new Programmer(101, "karim", "Java")));
-        p.add((new Programmer(102, "Rahim", "Python")));
-        p.add((new Programmer(103, "Momin", "C#")));
+    @GetMapping("/deleteProgrammer")
+    public String deleteProgrammer(@RequestParam int pId){
+        pr.deleteById(pId);
 
-        m.addAttribute("programmers", p);
-        return "AllProgrammer.html";
+
+        return "redirect:/home";
+
+
     }
+
+    @PostMapping("/updateProgrammer")
+    public String updateProgrammer(@ModelAttribute Programmer programmer){
+        Programmer p = pr.getReferenceById(programmer.getpId());
+
+        p.setpName(programmer.getpName());
+        p.setpLang(programmer.getpLang());
+
+        pr.save(p);
+
+
+        return "ProgrammerInfo.html";
+
+
+    }
+
 }
