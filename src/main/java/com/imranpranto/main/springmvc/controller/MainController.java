@@ -1,5 +1,7 @@
 package com.imranpranto.main.springmvc.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,6 +53,30 @@ public class MainController {
 
 
     }
+
+
+    @PostMapping("/findByLang")
+    public String findByLang(@RequestParam String pLang, Model m){
+        List<Programmer>p = pr.findBypLang(pLang);
+
+        m.addAttribute("programmers", p);
+
+        return "AllProgrammer.html";
+
+
+    }
+
+    @PostMapping("/findByName")
+    public String findByName(@RequestParam String pName, Model m){
+        List<Programmer>p = pr.findP(pName);
+
+        m.addAttribute("programmers", p);
+
+        return "AllProgrammer.html";
+
+
+    }
+
 
     @GetMapping("/deleteProgrammer")
     public String deleteProgrammer(@RequestParam int pId){
